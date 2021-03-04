@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import axios from 'axios';
 import './App.css';
+import Header from './components/ui/Header';
+import CharacterGrid from './components/characters/CharacterGrid'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    items: [],
+    isLoading: true
+  }
+  componentDidMount () {
+      axios.get('https://www.breakingbadapi.com/api/characters')
+      .then(res => {
+        this.setState({items: res.data, isLoading: false})
+      })
+  }
+  render() {
+    console.log(this.state.items);
+    return (<div className="container">
+      <Header />
+      <CharacterGrid items={this.state.items} isLoading={this.state.isLoading} />
+    </div>);
+  }
 }
 
 export default App;
