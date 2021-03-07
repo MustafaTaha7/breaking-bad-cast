@@ -3,19 +3,19 @@ class Search extends Component {
     state = { 
         text: '',
      }
-     onChange = (e)=>{
-        this.setState({text: e.target.value})
+     onChange = (text)=>{
+        this.setState({text});
+        this.props.getQuery(text);
       }
     render() { 
-        console.log(this.props);
         return ( 
             <section className="search">
                 <form>
-                    <input type="text" 
-                    className="form-control" 
-                    placeholder='Search characters' 
+                    <input type="text"
+                    className="form-control"
+                    placeholder='Search characters'
                     value={this.state.text}
-                    onChange={(e)=>this.onChange(e)}
+                    onChange={(e)=>this.onChange(e.target.value)}
                     autoFocus />
                 </form>
             </section>
